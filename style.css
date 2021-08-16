@@ -27,11 +27,16 @@ select {
   -moz-appearance: none;
   border-radius: 0;
   background-color: #a7c5e3;
+  cursor: pointer;
 }
 
 select:focus,
 button:focus {
   outline: 0;
+}
+
+option {
+  cursor: pointer;
 }
 
 .settings-btn {
