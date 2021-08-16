@@ -41,6 +41,9 @@ let score = 0;
 // Init time
 let time = 10;
 
+// Start counting down 
+const timeInterval = setInterval(updateTime, 1000);
+
 // Generate random word from array
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
@@ -59,6 +62,29 @@ function updateScore() {
   scoreEl.innerText = score;
 }
 
+// Update Time
+function updateTime() {
+  time--;
+  timeEl.innerHTML = time + 's';
+
+  if(time === 0) {
+    clearInterval(timeInterval);
+    //end game
+    gameOver();
+  }
+}
+
+// Game over, show end screen
+function gameOver() {
+  endgameEl.innerHTML = `
+    <h1>Time ran out</h1>
+    <p>Your final score is ${score}</p>
+    <button onclick="location.reload()">Play again</button>
+  `;
+
+  endgameEl.style.display = "flex";
+}
+
 // Check if words matches
 function checkMatch(e) {
   const insertText = e.target.value;
@@ -67,8 +93,13 @@ function checkMatch(e) {
     updateScore();
     //Clear input
     e.target.value = '';
+
+    time += 5;
+
+    updateTime();
   }
 }
+
 
 //Event listeners
 text.addEventListener('input', checkMatch);
